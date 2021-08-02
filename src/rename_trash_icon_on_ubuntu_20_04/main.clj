@@ -7,7 +7,9 @@
                                      pipeline pipeline-async]]
    [clojure.string]
    [clojure.spec.alpha :as s]
-   [clojure.java.io :as io]))
+   [clojure.java.io :as io])
+  (:import
+   (com.sun.jna Library Native Platform #_Function NativeLibrary)))
 
 (println "clojure.compiler.direct-linking" (System/getProperty "clojure.compiler.direct-linking"))
 (clojure.spec.alpha/check-asserts true)
