@@ -7,7 +7,7 @@ rename(){
 repl(){
   clj \
     -X:repl deps-repl.core/process \
-    :main-ns deathstar.main \
+    :main-ns rename-trash-icon-on-ubuntu-20-04.main \
     :port 7788 \
     :host '"0.0.0.0"' \
     :repl? true \
