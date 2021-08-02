@@ -21,4 +21,13 @@ main(){
     -M -m rename-trash-icon-on-ubuntu-20-04.main
 }
 
+uberjar(){
+  clj \
+    -X:uberjar genie.core/process \
+    :uberjar-name out/rename-trash-icon-on-ubuntu-20-04.standalone.jar \
+    :main-ns rename-trash-icon-on-ubuntu-20-04.main
+  mkdir -p out/jpackage-input
+  mv out/rename-trash-icon-on-ubuntu-20-04.standalone.jar out/jpackage-input/
+}
+
 "$@"
