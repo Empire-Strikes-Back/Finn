@@ -1,4 +1,4 @@
-i am rename-trash-icon-on-ubuntu-20-04 prorgam - i am game
+i am rename-trash-icon-on-ubuntu-20-04 prorgam
 
 my language is clojure
 my runtime is jvm, no graalvm native image
