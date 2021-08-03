@@ -7,7 +7,9 @@
                                      pipeline pipeline-async]]
    [clojure.string]
    [clojure.spec.alpha :as s]
-   [clojure.java.io :as io]))
+   [clojure.java.io :as io])
+  (:import
+   (com.sun.jna Library Native Platform #_Function NativeLibrary)))
 
 (println "clojure.compiler.direct-linking" (System/getProperty "clojure.compiler.direct-linking"))
 (clojure.spec.alpha/check-asserts true)
@@ -24,3 +26,53 @@
     (add-watch stateA :watch-fn (fn [k stateA old-state new-state] new-state))
 
     (go)))
+
+
+#_(definterface ICLibrary
+  (^void printf [^String format ^"[Ljava.lang.Object;" args]))
+
+#_(def clibrary-proxy (proxy [Library ICLibrary] []))
+
+#_(def clibrary-proxy-class (class clibrary-proxy))
+
+(gen-interface
+ :name rename-trash-icon-on-ubuntu-20-04.main.ICLibrary
+ :extends [com.sun.jna.Library]
+ :methods
+ [[printf [String int #_"[Ljava.lang.Object;"] void]])
+
+(comment
+
+  (require
+   '[rename-trash-icon-on-ubuntu-20-04.main]
+   '[expanse.fs.runtime.core :as fs.runtime.core]
+   :reload)
+
+  (-main)
+
+  (swap! stateA assoc ::random (rand-int 1000))
+
+  (.isInterface rename-trash-icon-on-ubuntu-20-04.main.ICLibrary)
+
+  (def clibrary (Native/load "c"
+                             rename-trash-icon-on-ubuntu-20-04.main.ICLibrary))
+
+  (.printf clibrary "text %d" (int 1))
+
+  (.invoke
+   (com.sun.jna.Function/getFunction "c" "printf")
+   Integer
+   (to-array ["text %d" (int 2)]))
+
+  (def clibrary (NativeLibrary/getInstance "c"))
+
+  (def cprintf (.getFunction clibrary "printf"))
+
+  (.invoke cprintf Integer (to-array ["text %d" 3]))
+
+  (def csqrt (.getFunction clibrary "sqrt"))
+
+  (.invoke csqrt Integer (to-array [(int 4)]))
+
+  ;
+  )
