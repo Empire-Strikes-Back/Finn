@@ -16,7 +16,7 @@
 (defonce stateA (atom nil))
 
 (defn -main [& args]
-  (println ::-main)
+  (println :-main)
   (let [data-dir (-> (io/file (System/getProperty "user.dir")) (.getCanonicalPath))]
     (reset! stateA {})
     (add-watch stateA :watch-fn (fn [k stateA old-state new-state] new-state))
@@ -46,7 +46,7 @@
 
   (-main)
 
-  (swap! stateA assoc ::random (rand-int 1000))
+  (swap! stateA assoc :random (rand-int 1000))
 
   (.isInterface rename-trash-icon-on-ubuntu-20-04.main.ICLibrary)
 
